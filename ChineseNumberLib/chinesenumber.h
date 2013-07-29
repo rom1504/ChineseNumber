@@ -5,7 +5,7 @@
 
 namespace ChineseNumber
 {
-    QString doubleToChineseNumber(double d, bool formal=false);
+    QString doubleToChineseNumber(double d, bool formal=false, bool price=false);
 }
 
 #endif // CHINESENUMBER_H

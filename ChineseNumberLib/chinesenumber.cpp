@@ -63,10 +63,13 @@ namespace ChineseNumber
         }
     }
 
-    QString doubleToChineseNumber(double d,bool formal)
+    QString doubleToChineseNumber(double d,bool formal,bool price)
     {
         int num=std::floor(d);
         int dec=round((d-(double)num)*100.0);
-        return (num!=0 || dec==0 ? numToChineseNumber(num,formal) : "")+(dec!=0 ? ("点"+decToChineseNumber(dec,2,formal)) : "");
+        return (num!=0 || dec==0 ? numToChineseNumber(num,formal) : "")+
+                (d>=0 && d<100000000 ?
+                     (dec!=0 ? (((!price || (price && num!=0) ) ?  (price ? "元" : "点") : "")+decToChineseNumber(dec,2,formal)+(price ? "角" : "")) : (price ? "元" : ""))
+                  : "");
     }
 }

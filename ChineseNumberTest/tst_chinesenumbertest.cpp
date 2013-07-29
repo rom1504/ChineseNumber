@@ -16,6 +16,9 @@ private Q_SLOTS:
 
     void testCaseFormalSimplifiedNumber();
     void testCaseFormalSimplifiedNumber_data();
+
+    void testCaseFormalSimplifiedPrice();
+    void testCaseFormalSimplifiedPrice_data();
 };
 
 ChineseNumberTest::ChineseNumberTest()
@@ -67,6 +70,31 @@ void ChineseNumberTest::testCaseFormalSimplifiedNumber_data()
     QTest::newRow("23432.65")<<23432.65<<"贰万叁仟肆佰叁拾贰点陆伍";
     QTest::newRow("1000.0")<<1000.0<<"壹仟";
     QTest::newRow("35754249.73")<<35754249.73<<"叁仟伍佰柒拾伍万肆仟贰佰肆拾玖点柒叁";
+    QTest::newRow("-5.0")<<-5.0<<"负数";
+    QTest::newRow("100000000.0")<<100000000.0<<"过大";
+}
+
+
+void ChineseNumberTest::testCaseFormalSimplifiedPrice()
+{
+    QFETCH(double, number);
+    QFETCH(QString, result);
+    QCOMPARE(ChineseNumber::doubleToChineseNumber(number,true,true),result);
+
+}
+
+void ChineseNumberTest::testCaseFormalSimplifiedPrice_data()
+{
+    QTest::addColumn<double>("number");
+    QTest::addColumn<QString>("result");
+    QTest::newRow("0.0")<<0.0<<"零元";
+    QTest::newRow("100.0")<<100.0<<"壹佰元";
+    QTest::newRow("0.01")<<0.01<<"零壹角";
+    QTest::newRow("100000.0")<<100000.0<<"壹拾万元";
+    QTest::newRow("19073.1")<<19073.1<<"壹万玖仟零柒拾叁元壹角";
+    QTest::newRow("23432.65")<<23432.65<<"贰万叁仟肆佰叁拾贰元陆伍角";
+    QTest::newRow("1000.0")<<1000.0<<"壹仟元";
+    QTest::newRow("35754249.73")<<35754249.73<<"叁仟伍佰柒拾伍万肆仟贰佰肆拾玖元柒叁角";
     QTest::newRow("-5.0")<<-5.0<<"负数";
     QTest::newRow("100000000.0")<<100000000.0<<"过大";
 }
