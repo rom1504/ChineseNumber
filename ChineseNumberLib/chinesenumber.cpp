@@ -30,7 +30,7 @@ namespace ChineseNumber
                 p*=10;
             }
             int f=n-num*p;
-            QString beginingNumber=num!=1 ? numToChineseNumber_(num,formal) : "";
+            QString beginingNumber=numToChineseNumber_(num,formal);
             QString power=numToChineseNumber_(p,formal);
             QString zero=(f!=0 && (double)p/(double)f>10.0 ? numToChineseNumber_(0,formal) : "");
             QString finishingNumber=(f!=0 ? numToChineseNumber_(f,formal) : "");
@@ -67,9 +67,12 @@ namespace ChineseNumber
     {
         int num=std::floor(d);
         int dec=round((d-(double)num)*100.0);
-        return (num!=0 || dec==0 ? numToChineseNumber(num,formal) : "")+
+        QString s=(num!=0 || dec==0 ? numToChineseNumber(num,formal) : "")+
                 (d>=0 && d<100000000 ?
                      (dec!=0 ? (((!price || (price && num!=0) ) ?  (price ? "元" : "点") : "")+decToChineseNumber(dec,2,formal)+(price ? "角" : "")) : (price ? "元" : ""))
                   : "");
+        s.replace("一一","一");
+        s.replace("壹壹","壹");
+        return s;
     }
 }
